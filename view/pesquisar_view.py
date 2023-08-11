@@ -14,6 +14,7 @@ class PesquisarView:
         self.controller_excluir = ExcluirNotaController()
         self.frame = frame
         self.categorias = []
+        self.nota = []
         self.combobox = None
         self.entry_palavra = None
         self.treeview = None
@@ -35,6 +36,7 @@ class PesquisarView:
         label_categoria.config(font=('Nunito', 11, 'bold'), bg='#a1d1d2', fg='#111f32')
         label_categoria.grid(row=0, column=0, sticky='W')
         self.categorias = self.controller_pesquisar.carregar_categorias()
+        self.categorias.insert(0, ['Selecione'])
         self.combobox = ttk.Combobox(frame1, values=[categoria[0] for categoria in self.categorias])
         self.combobox.config(font=('Nunito', 11, 'bold'), foreground='#111f32', width=46)
         self.combobox.set(self.categorias[0])
@@ -95,8 +97,9 @@ class PesquisarView:
     def pesquisar_nota(self):
         self.treeview.delete(*self.treeview.get_children())
         notas = self.controller_pesquisar.pesquisar_nota(self.combobox.get(), self.entry_palavra.get())
-        for id_nota, descricao, titulo, categoria in notas:
-            self.treeview.insert("", tk.END, values=(categoria, titulo, descricao), tags=(id_nota,))
+        if notas:
+            for id_nota, descricao, titulo, categoria in notas:
+                self.treeview.insert("", tk.END, values=(categoria, titulo, descricao), tags=(id_nota,))
         self.combobox.set(self.categorias[0])
         self.entry_palavra.delete(0, 'end')
 
@@ -106,8 +109,8 @@ class PesquisarView:
             info = self.treeview.item(valores)
             id_nota = info['tags'][0]
             conteudo_nota = info['values']
-            nota = list([id_nota] + conteudo_nota)
-        self.controller_vizualizar.vizualizar_nota(self.frame, nota)
+            self.nota = list([id_nota] + conteudo_nota)
+        self.controller_vizualizar.vizualizar_nota(self.frame, self.nota)
 
     def editar_nota(self):
         selecionado = self.treeview.selection()
@@ -115,8 +118,8 @@ class PesquisarView:
             info = self.treeview.item(valores)
             id_nota = info['tags'][0]
             conteudo_nota = info['values']
-            nota = list([id_nota] + conteudo_nota)
-        self.controller_editar.editar_nota(nota)
+            self.nota = list([id_nota] + conteudo_nota)
+        self.controller_editar.editar_nota(self.nota)
 
     def excluir_nota(self):
         selecionado = self.treeview.selection()
@@ -124,5 +127,5 @@ class PesquisarView:
             info = self.treeview.item(valores)
             id_nota = info['tags'][0]
             conteudo_nota = info['values']
-            nota = list([id_nota] + conteudo_nota)
-        self.controller_excluir.excluir_nota(nota)
+            self.nota = list([id_nota] + conteudo_nota)
+        self.controller_excluir.excluir_nota(self.nota)

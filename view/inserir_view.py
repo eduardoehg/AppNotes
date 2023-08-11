@@ -9,6 +9,7 @@ class InserirView:
     def __init__(self, frame):
         self.controller = InserirController()
         self.frame = frame
+        self.frame1 = None
         self.cb_categoria = None
         self.entry_titulo = None
         self.entry_descricao = None
@@ -18,20 +19,14 @@ class InserirView:
 
     def tela_inserir(self):
         limpar_tela(self.frame)
-        frame1 = tk.Frame(self.frame, width=598, height=50, background='#a1d1d2')
-        frame1.grid_propagate(False)
-        frame1.grid(row=0, column=0, pady=(10, 0))
-        label_categoria = tk.Label(frame1, text='Escolha uma Categoria')
+        self.frame1 = tk.Frame(self.frame, width=598, height=50, background='#a1d1d2')
+        self.frame1.grid_propagate(False)
+        self.frame1.grid(row=0, column=0, pady=(10, 0))
+        label_categoria = tk.Label(self.frame1, text='Escolha uma Categoria')
         label_categoria.config(bg='#a1d1d2', fg='#111f32', font=('Nunito', 11, 'bold'))
         label_categoria.grid(row=0, column=0, padx=10)
-        categorias = self.controller.listar_categorias()
-        listaComboBox = categorias
-        # PARA CRIAR O COMBOBOX. O values É A LISTA DOS ITENS SELECIONÁVEIS
-        self.cb_categoria = ttk.Combobox(frame1, values=[item[0] for item in listaComboBox], width=41)
-        self.cb_categoria.config(font=('Nunito', 11, 'bold'), foreground='#111f32')
-        # PARA DEIXAR UM ITEM JÁ SELECIONADO
-        self.cb_categoria.set(listaComboBox[0])
-        self.cb_categoria.grid(row=0, column=1)
+
+        self.atualizar_categorias()
 
         frame2 = tk.Frame(self.frame, width=598, height=50, background='#a1d1d2')
         frame2.grid_propagate(False)
@@ -46,7 +41,7 @@ class InserirView:
         label_descricao = tk.Label(self.frame, text='Descrição')
         label_descricao.config(bg='#a1d1d2', fg='#111f32', font=('Nunito', 11, 'bold'))
         label_descricao.grid(row=2, column=0, padx=10, sticky='W')
-        self.entry_descricao = tk.Text(self.frame, width=63, height=18, borderwidth=0)
+        self.entry_descricao = tk.Text(self.frame, wrap='word', width=63, height=18, borderwidth=0)
         self.entry_descricao.config(bg='#111f32', fg='#a1d1d2', font=('Nunito', 11, 'bold'), insertbackground='#a1d1d2')
         self.entry_descricao.grid(row=3, column=0, pady=(0, 10))
 
@@ -59,6 +54,14 @@ class InserirView:
         botao_salvar = tk.Button(frame3, text='Salvar Nota', width=12, command=self.inserir_nota)
         botao_salvar.config(bg='#111f32', fg='#a1d1d2', font=('Nunito', 11, 'bold'), relief='groove', borderwidth=0)
         botao_salvar.grid(row=0, column=1)
+
+    def atualizar_categorias(self):
+        categorias = self.controller.listar_categorias()
+        categorias.insert(0, ['Selecione'])
+        self.cb_categoria = ttk.Combobox(self.frame1, values=[item[0] for item in categorias], width=41)
+        self.cb_categoria.config(font=('Nunito', 11, 'bold'), foreground='#111f32')
+        self.cb_categoria.set(categorias[0])
+        self.cb_categoria.grid(row=0, column=1)
 
     def inserir_nota(self):
         if self.id_nota is None:

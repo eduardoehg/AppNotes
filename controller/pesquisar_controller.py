@@ -1,4 +1,4 @@
-from uteis import msg_erro
+from uteis import msg_erro, msg_sucesso
 from view.inserir_view import InserirView
 from view.vizualizar_view import VizualizarView
 from model.pesquisar_model import PesquisarModel, ExluirModel
@@ -34,9 +34,12 @@ class VizualizarNotaController:
         self.model = VizualizarView()
 
     def vizualizar_nota(self, frame, nota):
-        titulo = nota[2]
-        corpo = nota[3]
-        self.model.tela_vizualizar_nota(frame, titulo, corpo)
+        if nota:
+            titulo = nota[2]
+            corpo = nota[3]
+            self.model.tela_vizualizar_nota(frame, titulo, corpo)
+        else:
+            msg_erro('Selecione uma Nota para ser Visualizada!')
 
 
 class EditarNotaController:
@@ -46,8 +49,11 @@ class EditarNotaController:
         self.view = InserirView(frame)
 
     def editar_nota(self, nota):
-        id_nota, categoria, titulo, nota = nota
-        self.view.editar_nota(categoria, titulo, nota, id_nota)
+        if nota:
+            id_nota, categoria, titulo, nota = nota
+            self.view.editar_nota(categoria, titulo, nota, id_nota)
+        else:
+            msg_erro('Selecione uma Nota para ser Editada!')
 
 
 class ExcluirNotaController:
@@ -59,3 +65,6 @@ class ExcluirNotaController:
     def excluir_nota(self, nota):
         if nota:
             self.model.excluir_nota(nota)
+            msg_sucesso('Nota Excluída com Sucesso!')
+        else:
+            msg_erro('Selecione uma Nota para ser Excluída!')

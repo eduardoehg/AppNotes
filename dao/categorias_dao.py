@@ -88,8 +88,10 @@ class ExcluirCategoriaDao:
         id_categoria = self.pesquisar(categoria)
         try:
             self.connection.conectar()
-            comando = f'DELETE FROM categorias WHERE idCategoria = {id_categoria}'
-            self.connection.alterar_bd(comando)
+            comando1 = f'DELETE FROM notas WHERE idCategoria = {id_categoria}'
+            self.connection.alterar_bd(comando1)
+            comando2 = f'DELETE FROM categorias WHERE idCategoria = {id_categoria}'
+            self.connection.alterar_bd(comando2)
             self.connection.desconectar()
         except Exception as ex:
             print(ex)

@@ -7,11 +7,10 @@ class VizualizarView:
     def __init__(self):
 
         self.frame = None
-        self.nota = None
 
     def tela_vizualizar_nota(self, frame, titulo, corpo):
         self.frame = frame
-        texto = f'Título: {titulo}\n\nNota:\n{corpo}'
+        texto = f'Título: {titulo}\n\n{corpo}'
 
         janela = tk.Toplevel(self.frame)
         largura, altura, x, y = dimensionamento(janela, 638, 650, 85)
@@ -30,6 +29,8 @@ class VizualizarView:
         frame.grid(row=0, column=0, pady=20, padx=20)
         frame.grid_propagate(False)
 
-        self.nota = tk.Label(frame, text=texto, width=64, height=29)
-        self.nota.config(font=('Nunito', 11, 'bold'), bg='#111f32', fg='#a1d1d2', anchor='nw')
-        self.nota.grid(row=0, column=0, padx=10, pady=10)
+        nota = tk.Text(frame, wrap='word', width=64, height=29)
+        nota.config(font=('Nunito', 11, 'bold'), bg='#111f32', fg='#a1d1d2')
+        nota.grid(row=0, column=0, padx=10, pady=10, sticky='nsew')
+        nota.insert(1.0, texto)
+        nota.config(state=tk.DISABLED)

@@ -33,9 +33,9 @@ class CategoriaView:
 
 class InserirCategoriaView(CategoriaView):
 
-    def __init__(self, titulo, descricao):
+    def __init__(self, titulo, descricao, janela_base):
         super().__init__(titulo, descricao)
-        self.controller = InserirCategoriaController()
+        self.controller = InserirCategoriaController(janela_base)
         self.entry = None
 
         self.tela_inserir()
@@ -59,9 +59,9 @@ class InserirCategoriaView(CategoriaView):
 
 class EditarCategoriaView(CategoriaView):
 
-    def __init__(self, titulo, descricao):
+    def __init__(self, titulo, descricao, janela_base):
         super().__init__(titulo, descricao)
-        self.controller = EditarCategoriaController()
+        self.controller = EditarCategoriaController(janela_base)
         self.combobox = None
         self.entry = None
 
@@ -69,6 +69,7 @@ class EditarCategoriaView(CategoriaView):
 
     def tela_editar(self):
         categorias = self.controller.carregar_categorias()
+        categorias.insert(0, ['Selecione'])
         self.combobox = ttk.Combobox(self.frame, values=[categoria[0] for categoria in categorias])
         self.combobox.config(font=('Nunito', 11, 'bold'), foreground='#111f32', width=15)
         self.combobox.set(categorias[0])
@@ -89,9 +90,9 @@ class EditarCategoriaView(CategoriaView):
 
 class ExcluirCategoriaView(CategoriaView):
 
-    def __init__(self, titulo, descricao):
+    def __init__(self, titulo, descricao, janela_base):
         super().__init__(titulo, descricao)
-        self.controller = ExcluirCategoriaController()
+        self.controller = ExcluirCategoriaController(janela_base)
         self.combobox = None
 
         self.tela_excluir()
@@ -100,10 +101,11 @@ class ExcluirCategoriaView(CategoriaView):
         label = tk.Label(self.frame, text='Categoria')
         label.config(font=('Nunito', 11, 'bold'), bg='#a1d1d2', fg='#111f32')
         label.grid(row=0, column=0, pady=10, padx=10)
-        lista = self.controller.carregar_categorias()
-        self.combobox = ttk.Combobox(self.frame, values=[item[0] for item in lista])
+        categorias = self.controller.carregar_categorias()
+        categorias.insert(0, ['Selecione'])
+        self.combobox = ttk.Combobox(self.frame, values=[item[0] for item in categorias])
         self.combobox.config(font=('Nunito', 11, 'bold'), width=50)
-        self.combobox.set(lista[0])
+        self.combobox.set(categorias[0])
         self.combobox.grid(row=0, column=1)
         botao = tk.Button(self.frame, text='Excluir', width=12, command=self.excluir_categoria)
         botao.config(font=('Nunito', 11, 'bold'), bg='#111f32', fg='#a1d1d2', borderwidth=0, relief='groove')

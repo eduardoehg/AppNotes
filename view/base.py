@@ -38,15 +38,15 @@ class Base:
         titulo_inserir = 'Inserir Nova Categoria'
         descricao_inserir = 'Digite o nome da nova categoria e clique em salvar'
         categorias.add_command(label='Inserir Categoria', command=partial(InserirCategoriaView, titulo_inserir,
-                                                                          descricao_inserir))
+                                                                          descricao_inserir, self.frame_corpo))
         titulo_editar = 'Editar Categoria'
         descricao_editar = 'Selecione a categoria desejada e digite o seu novo nome'
         categorias.add_command(label='Editar Categoria', command=partial(EditarCategoriaView, titulo_editar,
-                                                                         descricao_editar))
+                                                                         descricao_editar, self.frame_corpo))
         titulo_excluir = 'Excluir Categoria'
         descricao_excluir = 'Selecione a categoria desejada e clique em excluir'
         categorias.add_command(label='Excluir Categoria', command=partial(ExcluirCategoriaView, titulo_excluir,
-                                                                          descricao_excluir))
+                                                                          descricao_excluir, self.frame_corpo))
         barra.add_command(label='Sair', command=self.janela.quit)
 
         frame_cabecalho_esquerda = tk.Frame(self.frame_cabecalho, background='#a1d1d2', width=365, height=50)
@@ -70,16 +70,12 @@ class Base:
         botao_pesquisar.grid(row=0, column=2, pady=10)
 
         InserirView(self.frame_corpo)
-        self.nome_tela = 'inserir'
 
         self.janela.mainloop()
 
     def pesquisarview(self):
-        if self.nome_tela == 'inserir':
-            PesquisarView(self.frame_corpo)
-            self.nome_tela = 'pesquisar'
+        PesquisarView(self.frame_corpo)
 
     def inserirview(self):
-        if self.nome_tela == 'pesquisar':
-            InserirView(self.frame_corpo)
-            self.nome_tela = 'inserir'
+        InserirView(self.frame_corpo)
+
