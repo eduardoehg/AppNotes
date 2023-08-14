@@ -48,8 +48,8 @@ class PesquisarDao:
                 self.connection.desconectar()
                 notas = []
                 for item in lista1 + lista2:
+                    item[-1] = self.pesquisar_nome_categoria(item[-1])
                     if item not in notas:
-                        item[-1] = self.pesquisar_nome_categoria(item[-1])
                         notas.append(item)
                 return notas
             except Exception as ex:
@@ -70,10 +70,24 @@ class PesquisarDao:
                     return notas
                 except Exception as ex:
                     print(ex)
-            else:
+            elif palavra:
                 try:
                     self.connection.conectar()
                     comando = f'SELECT * FROM notas WHERE titulo LIKE "%{palavra}%" OR descricao LIKE "%{palavra}%"'
+                    resultado = self.connection.pesquisar_bd(comando)
+                    self.connection.desconectar()
+                    notas = []
+                    for item in resultado:
+                        if item not in notas:
+                            item[-1] = self.pesquisar_nome_categoria(item[-1])
+                            notas.append(item)
+                    return notas
+                except Exception as ex:
+                    print(ex)
+            else:
+                try:
+                    self.connection.conectar()
+                    comando = f'SELECT * FROM notas'
                     resultado = self.connection.pesquisar_bd(comando)
                     self.connection.desconectar()
                     notas = []

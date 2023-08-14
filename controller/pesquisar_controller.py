@@ -13,7 +13,10 @@ class PesquisarController:
         return self.model.carregar_cateogrias()
 
     def pesquisar_nota(self, categoria, palavra):
-        if categoria == 'Selecione':
+        if categoria == 'Todas as Notas':
+            notas = self.model.pesquisar_nota()
+            return notas
+        elif categoria == 'Selecione':
             if palavra:
                 notas = self.model.pesquisar_nota(palavra=palavra)
                 return notas
@@ -62,9 +65,10 @@ class ExcluirNotaController:
 
         self.model = ExluirModel()
 
-    def excluir_nota(self, nota):
+    def excluir_nota(self, nota, treeview):
         if nota:
             self.model.excluir_nota(nota)
             msg_sucesso('Nota Excluída com Sucesso!')
+            treeview.delete(*treeview.get_children())
         else:
             msg_erro('Selecione uma Nota para ser Excluída!')

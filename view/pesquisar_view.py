@@ -37,6 +37,7 @@ class PesquisarView:
         label_categoria.grid(row=0, column=0, sticky='W')
         self.categorias = self.controller_pesquisar.carregar_categorias()
         self.categorias.insert(0, ['Selecione'])
+        self.categorias.insert(1, ['Todas as Notas'])
         self.combobox = ttk.Combobox(frame1, values=[categoria[0] for categoria in self.categorias])
         self.combobox.config(font=('Nunito', 11, 'bold'), foreground='#111f32', width=46)
         self.combobox.set(self.categorias[0])
@@ -128,4 +129,4 @@ class PesquisarView:
             id_nota = info['tags'][0]
             conteudo_nota = info['values']
             self.nota = list([id_nota] + conteudo_nota)
-        self.controller_excluir.excluir_nota(self.nota)
+        self.controller_excluir.excluir_nota(self.nota, self.treeview)
