@@ -21,6 +21,7 @@ class Base:
         self.janela.geometry(f"{largura}x{altura}+{x}+{y}")
         self.janela.title('AppNotes')
         self.janela.config(background='#a1d1d2')
+        # self.janela.wm_iconbitmap('img/icon.ico')
 
         self.frame_cabecalho = tk.Frame(self.janela, bg='#a1d1d2', width=600, height=50)
         self.frame_cabecalho.grid_propagate(False)
@@ -55,8 +56,8 @@ class Base:
         frame_cabecalho_direita = tk.Frame(self.frame_cabecalho, background='#a1d1d2', width=365, height=50)
         frame_cabecalho_direita.grid_propagate(False)
         frame_cabecalho_direita.grid(row=0, column=1)
-        titulo = tk.Label(frame_cabecalho_esquerda, text='AppNotes', fg='#111f32')
-        titulo.config(font=('Nunito', 24, 'bold'), bg='#a1d1d2')
+        imagem = tk.PhotoImage(file='img/logo.png')
+        titulo = tk.Label(frame_cabecalho_esquerda, image=imagem, bg='#a1d1d2')
         titulo.grid(row=0, column=0)
         imagem_inserir = tk.PhotoImage(file='img/add.png')
         botao_inserir = tk.Button(frame_cabecalho_direita, text='  Inserir ', image=imagem_inserir, compound='left',
@@ -78,4 +79,3 @@ class Base:
 
     def inserirview(self):
         InserirView(self.frame_corpo)
-
