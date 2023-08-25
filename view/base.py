@@ -17,11 +17,11 @@ class Base:
         self.tela_base()
         
     def tela_base(self):
-        largura, altura, x, y = dimensionamento(self.janela, 638, 650, 85)
+        largura, altura, x, y = dimensionamento(self.janela, 638, 670, 85)
         self.janela.geometry(f"{largura}x{altura}+{x}+{y}")
         self.janela.title('AppNotes')
         self.janela.config(background='#a1d1d2')
-        # self.janela.wm_iconbitmap('img/icon.ico')
+        self.janela.wm_iconbitmap('img/janela.ico')
 
         self.frame_cabecalho = tk.Frame(self.janela, bg='#a1d1d2', width=600, height=50)
         self.frame_cabecalho.grid_propagate(False)

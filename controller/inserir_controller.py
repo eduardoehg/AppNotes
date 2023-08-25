@@ -12,7 +12,8 @@ class InserirController:
 
     def inserir_nota(self, categoria, titulo, descricao, limpar):
         if categoria == 'Selecione':
-            msg_erro('Selecione uma Categoria para Salvar a Nota!')
+            msg_erro('Selecione uma Categoria para Salvar a Nota!\n\nVocê pode criar uma nova categoria '
+                     'em:\nCategorias -> Inserir Categoria')
         else:
             if categoria and titulo and descricao:
                 self.model.inserir_nota(categoria, titulo, descricao)

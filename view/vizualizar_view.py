@@ -17,10 +17,11 @@ class VizualizarView:
         texto = f'Título: {self.titulo}\n\n{self.nota}'
 
         janela = tk.Toplevel(self.frame)
-        largura, altura, x, y = dimensionamento(janela, 638, 670, 67)
+        largura, altura, x, y = dimensionamento(janela, 638, 670, 85)
         janela.geometry(f'{largura}x{altura}+{x}+{y}')
         janela.config(bg='#a1d1d2')
         janela.title(f'Vizualizar Nota')
+        janela.wm_iconbitmap('img/janela.ico')
         janela.grid_propagate(False)
 
         frame_cabecalho = tk.Frame(janela, bg='#a1d1d2', width=600, height=50)

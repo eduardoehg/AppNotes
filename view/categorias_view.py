@@ -16,10 +16,11 @@ class CategoriaView:
         self.tela_categoria_base()
 
     def tela_categoria_base(self):
-        largura, altura, x, y = dimensionamento(self.janela, 620, 160, 450)
+        largura, altura, x, y = dimensionamento(self.janela, 620, 160, 470)
         self.janela.geometry(f'{largura}x{altura}+{x}+{y}')
         self.janela.config(bg='#a1d1d2')
         self.janela.title(f'{self.titulo}')
+        self.janela.wm_iconbitmap('img/janela.ico')
         self.janela.grid_propagate(False)
 
         label = tk.Label(self.janela, text=f'{self.descricao}')
