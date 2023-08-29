@@ -8,15 +8,13 @@ import tkinter as tk
 
 class Base:
 
-    def __init__(self, janela):
-        self.janela = janela
+    def __init__(self):
+        self.janela = None
         self.frame_cabecalho = None
         self.frame_corpo = None
-        self.nome_tela = ''
-
-        self.tela_base()
         
-    def tela_base(self):
+    def tela_base(self, janela):
+        self.janela = janela
         largura, altura, x, y = dimensionamento(self.janela, 638, 670, 85)
         self.janela.geometry(f"{largura}x{altura}+{x}+{y}")
         self.janela.title('AppNotes')
