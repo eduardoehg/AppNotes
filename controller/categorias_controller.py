@@ -16,6 +16,7 @@ class InserirCategoriaController:
             self.view.atualizar_categorias()
             janela.destroy()
         else:
+            janela.grab_set()
             msg_erro('Informe o nome da Categoria para Salvar!')
 
 
@@ -35,6 +36,7 @@ class EditarCategoriaController:
             self.view.atualizar_categorias()
             janela.destroy()
         else:
+            janela.grab_set()
             msg_erro('Selecione e informe o novo nome da Categoria para Salvar!')
 
 
@@ -54,4 +56,5 @@ class ExcluirCategoriaController:
             self.view.atualizar_categorias()
             janela.destroy()
         else:
+            janela.grab_set()
             msg_erro('Selecione uma Categoria para Excluir!')

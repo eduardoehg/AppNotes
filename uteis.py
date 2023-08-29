@@ -1,4 +1,5 @@
 from tkinter import messagebox
+from tkinter import filedialog
 from reportlab.lib.pagesizes import letter
 from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer
 from reportlab.lib.styles import getSampleStyleSheet
@@ -28,8 +29,10 @@ def msg_erro(msg):
     messagebox.showinfo(title='ERRO!', message=f'{msg}')
 
 
-def gerar_pdf(titulo, nota):
-    nome_arquivo = titulo + '.pdf'
+def gerar_pdf(titulo, nota, janela):
+    janela.grab_set()
+    diretorio = filedialog.askdirectory()
+    nome_arquivo = f'{diretorio}/{titulo}.pdf'
     documento = SimpleDocTemplate(nome_arquivo, pagesize=letter)
     pdf = []
 
@@ -54,11 +57,19 @@ def gerar_pdf(titulo, nota):
             pdf.append(elemento)
             pdf.append(Spacer(1, 12))
 
-    documento.build(pdf)
-    msg_sucesso('PDF Gerado com Sucesso!')
+    if diretorio:
+        try:
+            documento.build(pdf)
+            janela.grab_set()
+            msg_sucesso('Documento Word Gerado com Sucesso!')
+        except Exception as ex:
+            janela.grab_set()
+            msg_erro(f'Houve um erro ao gerar o Word\n\nMotivo:{ex}')
 
 
-def gerar_word(titulo, nota):
+def gerar_word(titulo, nota, janela):
+    diretorio = filedialog.askdirectory()
+    nome_arquivo = f'{diretorio}/{titulo}.docx'
     documento = Document()
 
     # Título centralizado
@@ -77,5 +88,11 @@ def gerar_word(titulo, nota):
             p = documento.add_paragraph(paragrafo)
             p.alignment = WD_PARAGRAPH_ALIGNMENT.JUSTIFY
 
-    documento.save(titulo + '.docx')
-    msg_sucesso('Documento Word Gerado com Sucesso!')
+    if diretorio:
+        try:
+            documento.save(nome_arquivo)
+            janela.grab_set()
+            msg_sucesso('Documento Word Gerado com Sucesso!')
+        except Exception as ex:
+            janela.grab_set()
+            msg_erro(f'Houve um erro ao gerar o Word\n\nMotivo:{ex}')
