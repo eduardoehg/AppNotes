@@ -3,6 +3,7 @@ from .pesquisar_view import PesquisarView
 from .categorias_view import InserirCategoriaView, EditarCategoriaView, ExcluirCategoriaView
 from uteis import dimensionamento
 from functools import partial
+from pathlib import Path
 import tkinter as tk
 
 
@@ -19,7 +20,10 @@ class Base:
         self.janela.geometry(f"{largura}x{altura}+{x}+{y}")
         self.janela.title('AppNotes')
         self.janela.config(background='#a1d1d2')
-        self.janela.wm_iconbitmap('img/janela.ico')
+
+        caminho = Path().absolute()
+        imagem_janela = caminho / 'img/janela.ico'
+        self.janela.wm_iconbitmap(imagem_janela)
 
         self.frame_cabecalho = tk.Frame(self.janela, bg='#a1d1d2', width=600, height=50)
         self.frame_cabecalho.grid_propagate(False)
@@ -54,15 +58,18 @@ class Base:
         frame_cabecalho_direita = tk.Frame(self.frame_cabecalho, background='#a1d1d2', width=365, height=50)
         frame_cabecalho_direita.grid_propagate(False)
         frame_cabecalho_direita.grid(row=0, column=1)
-        imagem = tk.PhotoImage(file='img/logo.png')
+        imagem_logo = caminho / 'img/logo.png'
+        imagem = tk.PhotoImage(file=imagem_logo)
         titulo = tk.Label(frame_cabecalho_esquerda, image=imagem, bg='#a1d1d2')
         titulo.grid(row=0, column=0)
-        imagem_inserir = tk.PhotoImage(file='img/add.png')
+        imagem_add = caminho / 'img/add.png'
+        imagem_inserir = tk.PhotoImage(file=imagem_add)
         botao_inserir = tk.Button(frame_cabecalho_direita, text='  Inserir ', image=imagem_inserir, compound='left',
                                   width=110, command=self.inserirview)
         botao_inserir.config(bg='#111f32', fg='#a1d1d2', font=('Nunito', 12, 'bold'), relief='groove', borderwidth=0)
         botao_inserir.grid(row=0, column=1, padx=(0, 5), pady=10)
-        imagem_pesquisar = tk.PhotoImage(file='img/search.png')
+        imagem_search = caminho / 'img/search.png'
+        imagem_pesquisar = tk.PhotoImage(file=imagem_search)
         botao_pesquisar = tk.Button(frame_cabecalho_direita, text='  Pesquisar ', image=imagem_pesquisar,
                                     compound='left', width=110, command=self.pesquisarview)
         botao_pesquisar.config(bg='#111f32', fg='#a1d1d2', font=('Nunito', 12, 'bold'), relief='groove', borderwidth=0)

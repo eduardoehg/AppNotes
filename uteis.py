@@ -61,7 +61,7 @@ def gerar_pdf(titulo, nota, janela):
         try:
             documento.build(pdf)
             janela.grab_set()
-            msg_sucesso('Documento Word Gerado com Sucesso!')
+            msg_sucesso('Documento PDF Gerado com Sucesso!')
         except Exception as ex:
             janela.grab_set()
             msg_erro(f'Houve um erro ao gerar o Word\n\nMotivo:{ex}')
