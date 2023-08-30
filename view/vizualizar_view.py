@@ -1,4 +1,5 @@
 from uteis import dimensionamento, gerar_pdf, gerar_word
+from pathlib import Path
 import tkinter as tk
 
 
@@ -20,7 +21,9 @@ class VizualizarView:
         self.janela.geometry(f'{largura}x{altura}+{x}+{y}')
         self.janela.config(bg='#a1d1d2')
         self.janela.title(f'Vizualizar Nota')
-        self.janela.wm_iconbitmap('img/janela.ico')
+        caminho = Path().absolute()
+        imagem_janela = caminho / 'img/icon.ico'
+        self.janela.wm_iconbitmap(imagem_janela)
         self.janela.grid_propagate(False)
 
         frame_cabecalho = tk.Frame(self.janela, bg='#a1d1d2', width=600, height=50)

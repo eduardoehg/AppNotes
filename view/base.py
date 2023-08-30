@@ -22,7 +22,7 @@ class Base:
         self.janela.config(background='#a1d1d2')
 
         caminho = Path().absolute()
-        imagem_janela = caminho / 'img/janela.ico'
+        imagem_janela = caminho / 'img/icon.ico'
         self.janela.wm_iconbitmap(imagem_janela)
 
         self.frame_cabecalho = tk.Frame(self.janela, bg='#a1d1d2', width=600, height=50)

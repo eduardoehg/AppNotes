@@ -2,6 +2,7 @@ from uteis import dimensionamento
 from controller.categorias_controller import InserirCategoriaController, EditarCategoriaController, ExcluirCategoriaController
 from tkinter import ttk
 from tkinter import messagebox
+from pathlib import Path
 import tkinter as tk
 
 
@@ -20,7 +21,9 @@ class CategoriaView:
         self.janela.geometry(f'{largura}x{altura}+{x}+{y}')
         self.janela.config(bg='#a1d1d2')
         self.janela.title(f'{self.titulo}')
-        self.janela.wm_iconbitmap('img/janela.ico')
+        caminho = Path().absolute()
+        imagem_janela = caminho / 'img/icon.ico'
+        self.janela.wm_iconbitmap(imagem_janela)
         self.janela.grid_propagate(False)
 
         label = tk.Label(self.janela, text=f'{self.descricao}')
